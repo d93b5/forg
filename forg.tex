@@ -8,7 +8,7 @@
 \usepackage{pgfcalendar, pgffor, ifthen}
 \usepackage[headheight=11ex,margin=.5cm,lmargin=1.5cm,top=0.2cm]{geometry}
 
-%
+
 % print line template to note pages
 %
 \newcommand{\notes}[3][\empty]{%
@@ -18,6 +18,16 @@
             {\textcolor{gray!30}{\rule{#3}{0.5pt}}\\}
             {\textcolor{gray!30}{\rule{#3}{0.5pt}}\vspace{#1}\\}
         }
+        \foreach \n in {1,...,9}{%
+        \ifthenelse{\equal{#1}{\empty}}
+            {\textcolor{gray!30}{\rule{#3}{0.02pt}}\\}
+            {\textcolor{gray!30}{\rule{#3}{0.02pt}}\vspace{-10pt}\\}
+        }
+        
+%\begin{tikzpicture}
+%\draw[step=2mm,help lines,line width=0.1pt] (0,0) grid[line width=0.1pt] (17cm,25cm);
+%\draw[step=1cm, line width=0.5pt] (0,0) grid (17cm,25cm);
+%\end{tikzpicture}
 }
 
 \usetikzlibrary{calc, calendar}
@@ -89,7 +99,7 @@
 	\let\%=\pgfcalendarshorthand
 	\pgfcalendar{cal}{#1}{#2}{%
 	  \centering\huge
-	  \hyperlink{#3}{\%wt, \%mt \%d0, \%y0}   \notes[10pt]{21}{\textwidth} \hypertarget{\%mt\%d0\%y0}  \clearpage
+	  \hyperlink{#3}{\%wt, \%mt \%d0, \%y0}   \notes[10pt]{18}{\textwidth} \hypertarget{\%mt\%d0\%y0}  \clearpage
 	  %
 	}
 }
@@ -107,18 +117,18 @@
 %
 % Quartely calendar
 % 
+
+\def\currentyear{2022}
+\hypertarget{Q42022}{\Quarter{10-01}{12-31}}
+\newpage
 \def\currentyear{2023}
-\hypertarget{Q12023}{
-\Quarter{01-01}{03-31}
-}
+\hypertarget{Q12023}{\Quarter{01-01}{03-31}}
 \newpage
 \def\currentyear{2023}
 \hypertarget{Q22023}{\Quarter{04-01}{06-30}}
-
 \newpage
 \def\currentyear{2023}
 \hypertarget{Q32023}{\Quarter{07-01}{09-30}}
-
 \newpage
 \def\currentyear{2023}
 \hypertarget{Q42023}{\Quarter{10-01}{12-31}}
@@ -126,6 +136,8 @@
 %
 % Daily notes pages
 %
+\newpage
+\NotePage{2022-10-01}{2022-12-31}{Q2022}
 \newpage
 \NotePage{2023-01-01}{2023-03-31}{Q12023}
 \newpage
