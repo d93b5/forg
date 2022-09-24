@@ -8,3 +8,5 @@ It is created for my own needs:
 
 
 It has been tested only on Remarkable 2, but should work with any devices.
+
+The current release (october 2022 - December 2023) is avaiable [Here](https://github.com/d93b5/forg/releases/download/Q42022/forg_22q4_22q4.pdf)
