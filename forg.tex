@@ -1,0 +1,142 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{lmodern}
+
+\usepackage{fancyhdr}
+\usepackage{pgfcalendar, pgffor, ifthen}
+\usepackage[headheight=11ex,margin=.5cm,lmargin=1.5cm,top=0.2cm]{geometry}
+
+%
+% print line template to note pages
+%
+\newcommand{\notes}[3][\empty]{%
+    \noindent \vspace{10pt}\\
+    \foreach \n in {1,...,#2}{%
+        \ifthenelse{\equal{#1}{\empty}}
+            {\textcolor{gray!30}{\rule{#3}{0.5pt}}\\}
+            {\textcolor{gray!30}{\rule{#3}{0.5pt}}\vspace{#1}\\}
+        }
+}
+
+\usetikzlibrary{calc, calendar}
+
+\renewcommand*\familydefault{\sfdefault}
+\colorlet{calendar}{gray}
+
+\def\currentyear{2023}
+
+
+% Header
+\renewcommand{\headrulewidth}{0pt}
+\fancyhf{}
+
+\pagestyle{fancy}
+\newif\ifvacation
+\tikzset{%
+	every 1st of month/.style={every day/.try, fill=black, text=white, draw=calendar, text centered,font=\LARGE, execute at end node=\strut},
+	every day/.style={minimum height=.90cm, text width=5.4cm, draw=gray,text=black},
+	every day name/.style={text=black, font=\small},
+	every workday/.style={every day/.append style={fill=white}},
+	every saturday/.style={every day/.append style={fill=calendar!15}},
+	every sunday/.style={every day/.append style={fill=calendar!15}},
+	vacation name/.initial=,
+}
+
+
+\tikzset{
+    hyperlink node/.style={
+        alias=sourcenode,
+        append after command={
+            let \n0={\pgfkeysvalueof{/pgf/outer xsep}},
+                \p1=([shift={(\n0, -\n0)}] sourcenode.north west),
+                \p2=([shift={(-\n0, \n0)}] sourcenode.south east),
+                \n1={\x2-\x1},
+                \n2={\y1-\y2} in
+            node [inner sep=0pt, outer sep=0pt, anchor=north west, at=(\p1)] {\hyperlink{#1}{\XeTeXLinkBox{\phantom{\rule{\n1}{\n2}}}}}
+        }
+    },
+}
+
+
+\newcommand{\Quarter}[2]{
+\begin{tikzpicture}
+	\calendar[
+		dates=\currentyear-#1 to \currentyear-#2,name=cal,
+		day code=
+		{
+	    	\node  [name=\pgfcalendarsuggestedname, every day/.try,hyperlink node=\%mt\%d0\currentyear] {\Large \tikzdaytext};
+	    	\node  [anchor=west, every day name/.try] at ([xshift=0.6cm]\pgfcalendarsuggestedname.west)
+	        {\large \hyperlink{\%mt\%d0\currentyear}{\pgfcalendarweekdayshortname{\pgfcalendarcurrentweekday}}};
+	  	},
+	  	execute before day scope={\ifdate{day of month=1}
+	  	{
+	  		\pgftransformxshift{6cm}
+	  		\node [every 1st of month]{\LARGE \bf \bfseries \pgfcalendarmonthname{\pgfcalendarcurrentmonth} \currentyear};
+	    }{}
+	    \ifdate{workday}{\tikzset{every workday/.try}}{}
+	    \ifdate{Saturday}{\tikzset{every saturday/.try}}{}
+	    \ifdate{Sunday}{\tikzset{every sunday/.try}}{}
+	   },
+	   execute at begin day scope={\pgftransformyshift{-.90*\pgfcalendarcurrentday cm}}
+	];
+\end{tikzpicture}
+}
+
+\newcommand{\NotePage}[3]
+{
+	\let\%=\pgfcalendarshorthand
+	\pgfcalendar{cal}{#1}{#2}{%
+	  \centering\huge
+	  \hyperlink{#3}{\%wt, \%mt \%d0, \%y0}   \notes[10pt]{21}{\textwidth} \hypertarget{\%mt\%d0\%y0}  \clearpage
+	  %
+	}
+}
+
+
+
+\begin{document}
+\centering
+
+
+\newpage
+
+\let\%=\pgfcalendarshorthand
+
+%
+% Quartely calendar
+% 
+\def\currentyear{2023}
+\hypertarget{Q12023}{
+\Quarter{01-01}{03-31}
+}
+\newpage
+\def\currentyear{2023}
+\hypertarget{Q22023}{\Quarter{04-01}{06-30}}
+
+\newpage
+\def\currentyear{2023}
+\hypertarget{Q32023}{\Quarter{07-01}{09-30}}
+
+\newpage
+\def\currentyear{2023}
+\hypertarget{Q42023}{\Quarter{10-01}{12-31}}
+
+%
+% Daily notes pages
+%
+\newpage
+\NotePage{2023-01-01}{2023-03-31}{Q12023}
+\newpage
+\NotePage{2023-04-01}{2023-06-30}{Q22023}
+\newpage
+\NotePage{2023-07-01}{2023-09-30}{Q32023}
+\newpage
+\NotePage{2023-10-01}{2023-12-31}{Q42023}
+
+
+
+
+
+\end{document}
