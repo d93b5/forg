@@ -1,4 +1,4 @@
-#Forg is a free pdf organizer for e-ink note-taking devices. 
+# Forg is a free pdf organizer for e-ink note-taking devices. 
 
 It is created for my own needs: 
 -	One page of notes per day
