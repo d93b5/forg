@@ -21,7 +21,7 @@ The PDF file has been tested only on Remarkable 2. Please let me know if it work
 
 ## Modify
 This project is a small LaTeX file `forg.tex`. It is about 150 lines long. You can easily modify the template (change the dates, add your own vacation etc.)
-Windows users who want to build their own PDF file can install [minktex](https://miktex.org/download), then [texmaker](https://www.xm1math.net/texmaker/).
+Windows users who want to build their own PDF file can install [MiKTeX](https://miktex.org/download), then [texmaker](https://www.xm1math.net/texmaker/).
 
 
 ## Feature requests can be posted [here](https://github.com/d93b5/forg/discussions)
