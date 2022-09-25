@@ -14,7 +14,7 @@ The current release (october 2022 - December 2023) is available [Here](https://g
 
 ![image](/snapshot.png)
 
-# Contribute
+# Contributing
 
 ## Test
 The PDF file has been tested only on Remarkable 2. Please let me know if it works on other devices by adding a post  [here](https://github.com/d93b5/forg/discussions)
