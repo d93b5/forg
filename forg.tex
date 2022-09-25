@@ -51,7 +51,6 @@
 	every workday/.style={every day/.append style={fill=white}},
 	every saturday/.style={every day/.append style={fill=calendar!15}},
 	every sunday/.style={every day/.append style={fill=calendar!15}},
-	vacation name/.initial=,
 }
 
 
@@ -88,6 +87,8 @@
 	    \ifdate{workday}{\tikzset{every workday/.try}}{}
 	    \ifdate{Saturday}{\tikzset{every saturday/.try}}{}
 	    \ifdate{Sunday}{\tikzset{every sunday/.try}}{}
+	    % Add the your special dates:
+	    \ifdate{equals=\currentyear-01-01}{\tikzset{every day/.append style={fill=black!20}}}{}
 	   },
 	   execute at begin day scope={\pgftransformyshift{-.90*\pgfcalendarcurrentday cm}}
 	];
